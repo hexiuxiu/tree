@@ -2,9 +2,13 @@
 PHP 将有tree结构意义的一组数据生成tree数据结构
 
 **典型使用场景**：
+
   在web开发中，在前端需要实现tree树，如 
+  
   https://github.com/jonmiles/bootstrap-treeview
+  
   http://element.eleme.io/#/zh-CN/component/tree
+  
   https://github.com/mar10/fancytree/wiki
   
   这些tree树在初始化的时候，通常需要tree描述的json数组。
