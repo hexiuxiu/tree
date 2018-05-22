@@ -86,8 +86,6 @@ class xmltree extends tree {
     function node($id,$subs,$level){
         global $items;
         $node = $items[$id];
-        $node['size'] = count($subs);
-
         $xml='<node>';
         foreach ($node as $k=>$v){
             $xml .=  "<$k>$v</$k>";
