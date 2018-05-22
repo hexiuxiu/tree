@@ -7,6 +7,8 @@
  */
 
 //demo
+// PHP version >= 7
+
 
 include 'tree.php';
 
@@ -67,7 +69,9 @@ class atree extends tree {
         return $node;
     }
 }
-$tree = new atree(0);
+$tree = new atree(0,'children');
+
+//你可以将处理好的数组进行json_encode,为web端初始tree提供数据
 print_r($tree->gettree());
 
 //生成xml的demo
@@ -97,4 +101,5 @@ class xmltree extends tree {
     }
 }
 $tree = new xmltree(0);
+
 print_r($tree->gettree());

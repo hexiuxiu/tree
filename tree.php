@@ -39,12 +39,17 @@ abstract class tree{
      */
     public function branch(&$node, $subNodes){
         if(!empty($subNodes)){
-            $node['sub'] = $subNodes;
+            $node[$this->subkey] = $subNodes;
         }
     }
 
-    function __construct($root) {
+    /**
+     * tree constructor.
+     * @param $root 根节点的id
+     */
+    function __construct($root,$subkey='sub') {
         $this->root = $root;
+        $this->subkey = $subkey;
     }
 
     final private function gern(){
