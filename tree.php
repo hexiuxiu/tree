@@ -11,6 +11,7 @@
 abstract class tree{
     public $level=0;
     public $root=0;
+    public $tree;
 
 
     /**
@@ -24,7 +25,7 @@ abstract class tree{
     /**
      * 按给定的节点id，返回该节点枝叶
      * 此方法是递归中调用，注意性能优化
-     * @param $i
+     * @param $id
      * @param $subs
      * @param $level
      * @return array
@@ -32,11 +33,11 @@ abstract class tree{
     abstract function node($id, $subs, $level);
 
     /**
-     * 把子节点数组合并到当前节点下面，可在子类重写此方法
+     * 把子节点数组合并到当前节点下面，可在子类重写此方法实现你想要的合并方式
      * @param $node
      * @param $subNodes
      */
-    function branch(&$node, $subNodes){
+    public function branch(&$node, $subNodes){
         if(!empty($subNodes)){
             $node['sub'] = $subNodes;
         }
@@ -46,16 +47,16 @@ abstract class tree{
         $this->root = $root;
     }
 
-    function gern(){
+    final private function gern(){
         $this->tree = $this->recu($this->root);
     }
 
-    function gettree(){
+    final function gettree(){
         $this->gern();
         return $this->tree;
     }
 
-    function recu($id){
+    private function recu($id){
         $this->level++;
 
         $s = $this->getsubs($id);
@@ -80,93 +81,3 @@ abstract class tree{
 
 }
 
-//demo
-global $odata,$items;
-$items = [
-    [
-        'id'=>0,
-        'name'=>'snqu',
-        'pid'=>null,
-    ],
-    [
-        'id'=>1,
-        'name'=>'sndo',
-        'pid'=>0
-    ],
-    [
-        'id'=>2,
-        'name'=>'v6',
-        'pid'=>0
-    ],
-    [
-        'id'=>3,
-        'name'=>'machao',
-        'pid'=>1
-    ],
-    [
-        'id'=>4,
-        'name'=>'cxp',
-        'pid'=>1
-    ],
-];
-
-
-$odata = [];
-foreach ($items as $item) {
-    $odata[$item['pid']][]=$item;
-}
-
-$items = array_column($items,null,'id');
-
-
-//生成PHP数组的demo
-class atree extends tree {
-
-    function getsubs($id):array{
-        global $odata;
-        $subids = array_column($odata[$id]??[],'id');
-        return $subids;
-    }
-
-    function node($id,$subs,$level):array{
-        global $items;
-        $node = $items[$id];
-        $node['size'] = count($subs);
-        $node['level'] = $level;
-        return $node;
-    }
-
-}
-$tree = new atree(0);
-print_r($tree->gettree());
-
-//生成xml的demo
-class xmltree extends tree {
-
-    function getsubs($id):array{
-        global $odata;
-        $subids = array_column($odata[$id]??[],'id');
-        return $subids;
-    }
-
-    function node($id,$subs,$level){
-        global $items;
-        $node = $items[$id];
-        $node['size'] = count($subs);
-
-        $xml='<node>';
-        foreach ($node as $k=>$v){
-            $xml .=  "<$k>$v</$k>";
-        }
-        $xml.='</node>';
-        return $xml;
-    }
-
-    function branch(&$node, $subNodes){
-
-        $node =str_replace('</node>',"<sub>$subNodes</sub></node>",$node);
-    }
-
-}
-$tree = new xmltree(0);
-print_r($tree->gettree());
