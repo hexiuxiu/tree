@@ -7,10 +7,10 @@
  */
 
 //demo
-// PHP version >= 7
+// PHP version >= 5.3
 
 
-include 'tree.php';
+include '../src/tree.php';
 
 
 global $odata,$items;
@@ -53,11 +53,11 @@ $items = array_column($items,null,'id');
 
 
 //生成PHP数组的demo
-class atree extends tree {
+class atree extends machao\tree {
 
     function getsubs($id):array{
         global $odata;
-        $subids = array_column($odata[$id]??[],'id');
+        $subids = array_column(isset($odata[$id])?$odata[$id]:[],'id');
         return $subids;
     }
 
@@ -75,11 +75,11 @@ $tree = new atree(0,'children');
 print_r($tree->gettree());
 
 //生成xml的demo
-class xmltree extends tree {
+class xmltree extends machao\tree {
 
     function getsubs($id):array{
         global $odata;
-        $subids = array_column($odata[$id]??[],'id');
+        $subids = array_column(isset($odata[$id])?$odata[$id]:[],'id');
         return $subids;
     }
 

@@ -6,7 +6,7 @@
  * Date: 2018/5/19 0019
  * Time: 10:50
  */
-
+namespace machao;
 
 abstract class tree{
     public $level=0;
@@ -73,7 +73,7 @@ abstract class tree{
             if(is_array($t)){
                 $sunNodes[] = $t;
             }else{
-                $sunNodes = $sunNodes??'';
+                $sunNodes = isset($sunNodes)?$sunNodes:'';
                 $sunNodes .= $t;
             }
         }

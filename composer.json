@@ -1,0 +1,19 @@
+{
+  "name": "machao/tree",
+  "description": "array to tree",
+  "keywords": ["tree", "Unlimited","classification"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "machao",
+      "email": "machao2872@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.*"
+  },
+  "autoload": {
+    "psr-4": {"tree\\": "src/"}
+  }
+}
