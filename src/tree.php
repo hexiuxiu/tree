@@ -6,12 +6,13 @@
  * Date: 2018/5/19 0019
  * Time: 10:50
  */
-namespace machao;
+namespace machao1989;
 
 abstract class tree{
     public $level=0;
     public $root=0;
     public $tree;
+    private $subkey;
 
 
     /**
@@ -33,6 +34,15 @@ abstract class tree{
     abstract function node($id, $subs, $level);
 
     /**
+     * tree constructor.
+     * @param $root 根节点的id
+     */
+    function __construct($root,$subkey='sub') {
+        $this->root = $root;
+        $this->subkey = $subkey;
+    }
+
+    /**
      * 把子节点数组合并到当前节点下面，可在子类重写此方法实现你想要的合并方式
      * @param $node
      * @param $subNodes
@@ -43,14 +53,6 @@ abstract class tree{
         }
     }
 
-    /**
-     * tree constructor.
-     * @param $root 根节点的id
-     */
-    function __construct($root,$subkey='sub') {
-        $this->root = $root;
-        $this->subkey = $subkey;
-    }
 
     final private function gern(){
         $this->tree = $this->recu($this->root);

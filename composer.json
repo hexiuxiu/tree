@@ -1,0 +1,15 @@
+{
+  "name": "machao1989/tree",
+  "type": "library",
+  "description": "",
+  "homepage": "",
+  "authors": [
+    {
+      "name": "machao",
+      "email": "machao2872@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">= 7.0"
+  }
+}

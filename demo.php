@@ -70,34 +70,17 @@ class atree extends machao\tree {
     }
 }
 $tree = new atree(0,'children');
-
+$atree = $tree->gettree();
 //你可以将处理好的数组进行json_encode,为web端初始tree提供数据
-print_r($tree->gettree());
+print_r($atree);
 
-//生成xml的demo
-class xmltree extends machao\tree {
+//所有节点 以树形缩进方式生成可选择的option
+$awesome = new RecursiveTreeIterator(
+    new RecursiveArrayIterator($atree),
+    null, null, 1
+);
+$awesome->beginChildren();
+foreach ($awesome as $line)
+    echo$line . PHP_EOL;
 
-    function getsubs($id):array{
-        global $odata;
-        $subids = array_column(isset($odata[$id])?$odata[$id]:[],'id');
-        return $subids;
-    }
 
-    function node($id,$subs,$level){
-        global $items;
-        $node = $items[$id];
-        $xml='<node>';
-        foreach ($node as $k=>$v){
-            $xml .=  "<$k>$v</$k>";
-        }
-        $xml.='</node>';
-        return $xml;
-    }
-
-    function branch(&$node, $subNodes){
-        $node =str_replace('</node>',"<sub>$subNodes</sub></node>",$node);
-    }
-}
-$tree = new xmltree(0);
-
-print_r($tree->gettree());
