@@ -9,6 +9,9 @@
       "email": "machao2872@gmail.com"
     }
   ],
+  "autoload": {
+    "psr-4": { "machao1989\\": "src/" }
+  },
   "require": {
     "php": ">= 7.0"
   }
